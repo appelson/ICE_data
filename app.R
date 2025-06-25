@@ -188,31 +188,24 @@ ui <- fluidPage(
         padding: 20px;
       }
 
-      .help-block {
-        font-size: 13px;
-        color: #555;
-        margin-top: -5px;
-        margin-bottom: 10px;
-      }
-
       body {
-        font-size: 18px;
+        font-size: 16px;
       }
 
       .form-control, .selectize-input, .radio label, .dataTables_wrapper {
-        font-size: 18px;
+        font-size: 16px;
       }
 
       h1 {
-        font-size: 48px !important;
+        font-size: 40px !important;
       }
 
       h3 {
-        font-size: 28px !important;
+        font-size: 25px !important;
       }
 
       .help-block {
-        font-size: 18px;
+        font-size: 16px;
       }
       
       table.dataTable.my-bordered-table {
@@ -222,6 +215,7 @@ ui <- fluidPage(
       table.dataTable.my-bordered-table th,
       table.dataTable.my-bordered-table td {
         border: 1px solid #d9edf7 !important;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
       }
   
     "))
@@ -229,26 +223,31 @@ ui <- fluidPage(
   
 ## ----------------------------- TITLE -----------------------------------------
 
-  titlePanel(
-    div(
-      class = "title-panel",
-      tags$h1(
-        style = "font-size: 36px; margin-bottom: 5px;",
-        tags$i(class = "fas fa-database", style = "color:#31708f; margin-right: 10px;"),
-        "ICE Detention Data Explorer"
-      ),
-      tags$h4(
-        style = "font-weight: 400; color: #555;",
-        "September 2023 – July 2025"
-      )
+tags$head(
+  tags$title("ICE Data Explorer")  # This is the browser tab title
+),
+
+# Your custom styled titlePanel
+titlePanel(
+  div(
+    class = "title-panel",
+    tags$h1(
+      style = "font-size: 36px; margin-bottom: 5px;",
+      tags$i(class = "fas fa-database", style = "color:#31708f; margin-right: 10px;"),
+      "ICE Detention Data Explorer"
+    ),
+    tags$h4(
+      style = "font-weight: 400; color: #555;",
+      "September 2023 – July 2025"
     )
-  ),
+  )
+),
 
   
 ## -------------------------- DESCRIPTION --------------------------------------
 
   div(
-    style = "margin-bottom: 20px; padding: 15px; background: #d9edf7; border-left: 5px solid #31708f; border-radius: 4px;",
+    style = "margin-bottom: 20px; padding: 15px; background: #d9edf7; border-left: 5px solid #31708f; border-radius: 4px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);",
     h4("Project Overview"),
     p("This tool allows you to explore ICE detention data, which includes information on individual detention stays, detainee demographics, case details, and detention lengths."),
     p(
@@ -277,7 +276,7 @@ ui <- fluidPage(
                      "Variable 1 (Rows):", 
                      choices = setNames(names(friendly_labels)[order(friendly_labels)], 
                                         friendly_labels[order(friendly_labels)]), 
-                     selected = "gender"
+                     selected = "state"
                    ),
                    selectInput(
                      "col_var", 
@@ -353,7 +352,7 @@ ui <- fluidPage(
       <div>
         2025 ICE Detention Data Explorer.
         &nbsp;|&nbsp;
-        <a href="https://github.com/aclu-national/detention-network-analysis" target="_blank">
+        <a href="https://github.com/appelson/ice_data_explorer" target="_blank">
           GitHub Repository
         </a>
       </div>
@@ -417,6 +416,8 @@ server <- function(input, output, session) {
   
   # Generating the summary
   generate_summary <- function(data) {
+    
+    # Defining the variables for the output
     row_var <- input$row_var
     col_var <- input$col_var
     distinct_col <- get_distinct_col()
@@ -428,22 +429,27 @@ server <- function(input, output, session) {
         summarise(
           Median = round(median(detention_length_days, na.rm = TRUE), 2),
           .groups = "drop"
-        )
+        ) %>%
+        arrange(-Median)
+      
       if (col_var != "None") {
         result <- result %>%
           mutate(!!col_var := replace_na(.data[[col_var]], "Missing")) %>%
           pivot_wider(names_from = all_of(col_var), values_from = Median, values_fill = NA)
+        
       } else {
         names(result)[2] <- "Median Detention Length (Days)"
       }
       return(result)
     }
     
-    # Defining others
+    # For total detentions 
     if (is.null(distinct_col)) {
       if (col_var == "None") {
         result <- data %>%
-          count(.data[[row_var]], name = "Count")
+          count(.data[[row_var]], name = "Count") %>%
+          arrange(-Count)
+
         if (input$show_percent) {
           result <- result %>%
             mutate(Percent = round(100 * Count / sum(Count), 2))
@@ -458,7 +464,10 @@ server <- function(input, output, session) {
           })
         }
       }
-    } else {
+    }
+    
+    # For unique people, stays, ect. 
+    else {
       result <- data %>%
         group_by(across(all_of(c(row_var, if (col_var != "None") col_var)))) %>%
         summarise(Count = n_distinct(.data[[distinct_col]]), .groups = "drop")
@@ -471,6 +480,13 @@ server <- function(input, output, session) {
         result <- result %>%
           mutate(Percent = round(100 * Count / sum(Count), 2))
       }
+      
+      if (col_var != "None" && input$show_percent) {
+        result[-1] <- lapply(result[-1], function(col) {
+            round(100 * col / sum(col, na.rm = TRUE), 2)
+          })
+      }
+      
     }
     result
   }

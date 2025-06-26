@@ -1,4 +1,4 @@
-![Immigration Data Explorer Screenshot](https://github.com/appelson/ICE_data/blob/e1feea8d65788e0a9265c894ddf02fd1d031b699/immg.png?raw=true)
+![Immigration Data Explorer Screenshot](https://github.com/appelson/ICE_data/blob/ebb9906081b3b58b796ec3b575716909223ca005/immigration_data_explorer.png)
 
 ## Project Overview  
 The **Immigration Data Explorer** is an interactive dashboard designed to increase transparency and accessibility around immigration enforcement activities in the United States. Leveraging data from the [Deportation Data Project](https://deportationdata.org/), this tool provides a comprehensive view of arrest and detention records spanning from **September 2023 through July 2025**.

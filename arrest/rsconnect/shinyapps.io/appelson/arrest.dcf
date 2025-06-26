@@ -1,0 +1,13 @@
+name: arrest
+title: arrest
+username: appelson
+account: appelson
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 14992840
+bundleId: 10524916
+url: https://appelson.shinyapps.io/arrest/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .RData

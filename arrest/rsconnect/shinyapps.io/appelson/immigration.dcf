@@ -1,0 +1,13 @@
+name: immigration
+title: immigration
+username: appelson
+account: appelson
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 14996568
+bundleId: 10524742
+url: https://appelson.shinyapps.io/immigration/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: app1.R|arrest_file.csv|arrest.parquet|sefsef.R

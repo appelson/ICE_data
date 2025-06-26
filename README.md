@@ -1,4 +1,4 @@
-# Immigration Data Explorer
+[](/immg.png)
 
 ## Project Overview  
 The **Immigration Data Explorer** is an interactive dashboard designed to increase transparency and accessibility around immigration enforcement activities in the United States. Leveraging data from the [Deportation Data Project](https://deportationdata.org/), this tool provides a comprehensive view of arrest and detention records spanning from **September 2023 through July 2025**.

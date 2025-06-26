@@ -1,4 +1,4 @@
-# ice_data_explorer
+# Immigration Data Explorer
 
 
 # File Structure

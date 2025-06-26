@@ -1,12 +1,24 @@
 # Immigration Data Explorer
 
-## Project
-This interactive dashboard is built to enhance transparency around immigration enforcement activities in the United States. This tool allows the user to create and export tables from data released by the (Deportation Data Project)[https://deportationdata.org/] and covers arrests and detention records from September 2023 through July 2025.
+## Project Overview  
+The **Immigration Data Explorer** is an interactive dashboard designed to increase transparency and accessibility around immigration enforcement activities in the United States. Leveraging data from the [Deportation Data Project](https://deportationdata.org/), this tool provides a comprehensive view of arrest and detention records spanning from **September 2023 through July 2025**.
 
-## Audience
-Anyone interested in immigration data. This may be especially useful to journalists or immigration attorneys.
+## Key Features  
+- **Interactive Exploration:** Dynamically filter immigration arrest and detention records by date and case status.
+- **Custom Table Creation:** Build data tables to focus on specific subsets of information relevant to your needs.
+- **Export Functionality:** Download generated tables in common formats (e.g., CSV) for further analysis or reporting.  
 
-## File Structure
+## Intended Audience  
+This project is valuable for a broad range of users, including:  
+- **Journalists:** To investigate and report on immigration enforcement patterns with empirical backing.  
+- **Immigration Attorneys:** To gain insights into detention and arrest data that may support casework or policy advocacy.  
+- **General Public:** To promote awareness and understanding of immigration enforcement activities in the U.S.  
+
+## Data Source  
+The dataset used in this project is sourced from the [Deportation Data Project](https://deportationdata.org/), an initiative dedicated to compiling and publishing detailed immigration enforcement records.
+
+## Project Structure  
+The repository is organized as follows to separate concerns and facilitate development:
 
 ```
 ├── README.md

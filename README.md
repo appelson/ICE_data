@@ -17,6 +17,19 @@ This project is valuable for a broad range of users, including:
 ## Data Source  
 The dataset used in this project is sourced from the [Deportation Data Project](https://deportationdata.org/), an initiative dedicated to compiling and publishing detailed immigration enforcement records.
 
+## Replicating
+### 1. Clone
+Clone the repository to your local machine:
+```
+git clone https://github.com/appelson/ICE_dashboard
+```
+
+### 2. Data
+Download arrest data from the [Deportation Data Project](https://deportationdata.org/).
+
+### 3. App
+Open the `arrest.Rproj` and `detention.Rproj` projects and, within each, app.R. This should create the app.
+
 ## Project Structure  
 The repository is organized as follows to separate concerns and facilitate development:
 
